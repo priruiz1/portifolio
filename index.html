@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priscila — Not Cute Anymore</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Syne (Moderna e Chic) + Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        illit: {
+                            black: '#0A0E0D',
+                            cardDark: '#131A17',
+                            cardBorder: '#23332D',
+                            mint: '#A3E635', // Menta vibrante
+                            mintSoft: '#99F6E4', // Verde menta suave
+                            pink: '#F472B6', // Rosa chic elegante
+                            pinkDeep: '#E11D48',
+                            silver: '#E2E8F0',
+                            lightBg: '#F0FDF4',
+                            lightCard: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        syne: ['Syne', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .font-syne {
+            font-family: 'Syne', sans-serif;
+        }
+
+        /* Efeito de brilho menta e rosa sutil */
+        .mint-glow {
+            box-shadow: 0 0 20px rgba(153, 246, 228, 0.3);
+        }
+
+        .pink-glow {
+            box-shadow: 0 0 20px rgba(244, 114, 182, 0.3);
+        }
+
+        /* Partícula subindo ao interagir */
+        @keyframes sparkUp {
+            0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(-60px) scale(1.5) rotate(45deg); }
+        }
+
+        .floating-spark {
+            position: absolute;
+            animation: sparkUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            pointer-events: none;
+        }
+
+        /* Gradient Text Menta + Rosa Chic */
+        .text-gradient {
+            background: linear-gradient(135deg, #2DD4BF 0%, #F472B6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0E0D;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #23332D;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2DD4BF;
+        }
+    </style>
+</head>
+<body class="bg-illit-lightBg text-slate-800 dark:bg-illit-black dark:text-illit-silver min-h-screen flex flex-col justify-between selection:bg-illit-mintSoft selection:text-slate-900">
+
+    <!-- Header / Barra de Navegação -->
+    <header class="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-illit-black/80 border-b border-teal-200 dark:border-illit-cardBorder/60 transition-colors">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 font-syne text-xl font-extrabold tracking-tight">
+                <span class="text-gradient">PRISCILA • NOT CUTE ANYMORE.</span>
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-teal-500/10 border border-teal-400/30 text-teal-600 dark:text-illit-mintSoft font-sans font-semibold">GLLIT • IROHA UTT</span>
+            </div>
+
+            <!-- Botões de Ação no Header -->
+            <div class="flex items-center gap-3">
+                <button id="copyLinkBtn" class="bg-teal-50 hover:bg-teal-100 dark:bg-illit-cardDark dark:hover:bg-illit-cardBorder text-slate-800 dark:text-illit-silver font-semibold px-4 py-2 rounded-xl transition-all flex items-center gap-2 text-xs uppercase tracking-wider shadow-sm border border-teal-200 dark:border-illit-cardBorder">
+                    <i id="copyIcon" class="fa-solid fa-link text-illit-pink"></i>
+                    <span id="copyText">Copiar Link</span>
+                </button>
+
+                <button id="themeToggleBtn" class="bg-teal-50 hover:bg-teal-100 dark:bg-illit-cardDark dark:hover:bg-illit-cardBorder text-slate-800 dark:text-illit-silver font-semibold px-4 py-2 rounded-xl transition-all flex items-center gap-2 text-xs uppercase tracking-wider shadow-sm border border-teal-200 dark:border-illit-cardBorder">
+                    <i id="themeIcon" class="fa-solid fa-moon text-illit-mintSoft"></i>
+                    <span id="themeText">Minta & Noir Mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-5xl mx-auto px-6 py-10 space-y-12 flex-grow">
+
+        <!-- Hero Section: Concept Apresentação -->
+        <section class="bg-white dark:bg-illit-cardDark rounded-3xl p-8 sm:p-12 shadow-2xl border border-teal-100 dark:border-illit-cardBorder/80 flex flex-col md:flex-row items-center gap-10 relative overflow-hidden transition-all">
+            <!-- Efeito óptico no fundo Menta + Rosa -->
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-illit-mintSoft/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-illit-pink/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Avatar Chic / Aesthetic -->
+            <div class="relative group">
+                <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-2 border-illit-mintSoft/60 shadow-xl bg-slate-900 flex items-center justify-center text-illit-pink text-5xl relative">
+                    <i class="fa-solid fa-cat text-gradient"></i>
+                    <div class="absolute inset-0 bg-gradient-to-t from-illit-black/80 via-transparent to-transparent"></div>
+                </div>
+                <span class="absolute -bottom-2 -right-2 bg-illit-black border border-illit-cardBorder text-illit-mintSoft px-3 py-1 rounded-lg text-xs font-bold tracking-wider uppercase shadow-lg flex items-center gap-1">
+                    <i class="fa-solid fa-heart text-illit-pink text-[10px]"></i> Iroha & Dev
+                </span>
+            </div>
+
+            <!-- Texto de Apresentação -->
+            <div class="flex-1 text-center md:text-left space-y-5">
+                <div class="inline-flex items-center gap-2 bg-teal-100 dark:bg-teal-950/60 text-teal-800 dark:text-illit-mintSoft px-3 py-1 rounded-md text-xs font-bold tracking-widest uppercase border border-teal-200 dark:border-teal-800">
+                    <i class="fa-solid fa-feather-pointed text-illit-pink"></i> Digital & Creative Space
+                </div>
+                
+                <h1 class="text-3xl sm:text-5xl font-syne font-extrabold tracking-tight leading-tight">
+                    Prazer, Priscila.<br>
+                </h1>
+                
+                <p class="text-slate-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed max-w-xl">
+                    Crio experiências digitais com toque pessoal e sensibilidade. Inspirada pela precisão na dança da minha utt <b>Iroha (ILLIT)</b>, leitora apaixonada pelos clássicos de <b>Jorge Amado</b>, fascinada pelo charme chic de <b>Cinnamoroll & Hello Kitty</b> e acompanhada pelos meus gatos.
+                </p>
+
+                <!-- Botões de Ação Dinâmicos (DOM) -->
+                <div class="pt-2 flex flex-wrap justify-center md:justify-start items-center gap-4">
+                    <button id="likeBtn" class="relative bg-gradient-to-r from-teal-400 to-illit-pink hover:opacity-95 active:scale-95 text-slate-900 font-bold px-6 py-3 rounded-xl shadow-lg transition-all flex items-center gap-3 text-sm tracking-wide mint-glow">
+                        <i class="fa-solid fa-bolt text-xs text-slate-900"></i>
+                        <span>Support Pulse</span>
+                        <span id="likeCount" class="bg-black/30 text-white rounded-md px-2 py-0.5 text-xs font-black">0</span>
+                    </button>
+                    
+                    <button id="factBtn" class="bg-slate-100 hover:bg-slate-200 dark:bg-illit-black dark:hover:bg-illit-cardBorder text-slate-800 dark:text-illit-silver font-semibold px-5 py-3 rounded-xl transition-all flex items-center gap-2 text-sm border border-slate-300 dark:border-illit-cardBorder">
+                        <i class="fa-solid fa-sparkles text-illit-pink"></i>
+                        <span>Uncover Secret</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card de Curiosidade Reveleada (Aparece via DOM) -->
+        <section id="factCard" class="hidden bg-gradient-to-r from-teal-900/20 via-illit-cardDark to-rose-900/20 p-6 rounded-2xl border border-illit-mintSoft/40 text-center shadow-lg transition-all animate-fade-in">
+            <h3 class="font-syne font-bold text-sm text-illit-pink uppercase tracking-widest mb-2 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-eye"></i> Priscila's Not-Cute Secret Revealed
+            </h3>
+            <p id="factText" class="text-slate-800 dark:text-illit-silver font-medium text-sm sm:text-base italic">
+                Clique para liberar um segredo do meu universo...
+            </p>
+        </section>
+
+        <!-- Grid de Interesses / Concept Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            
+            <!-- Gatos Chic -->
+            <div class="bg-white dark:bg-illit-cardDark p-6 rounded-2xl border border-teal-100 dark:border-illit-cardBorder hover:border-illit-pink transition-all group">
+                <div class="text-2xl text-illit-mintSoft mb-3 group-hover:scale-110 transition-transform"><i class="fa-solid fa-cat"></i></div>
+                <h3 class="font-syne font-bold text-base text-slate-900 dark:text-white mb-1">Cat Lover</h3>
+                <p class="text-xs text-slate-500 dark:text-gray-400 leading-relaxed">Companhia silenciosa, atitude independente e a calmaria perfeita nos momentos de criação visual.</p>
+            </div>
+
+            <!-- Sanrio Redefined -->
+            <div class="bg-white dark:bg-illit-cardDark p-6 rounded-2xl border border-teal-100 dark:border-illit-cardBorder hover:border-illit-mintSoft transition-all group">
+                <div class="text-2xl text-illit-pink mb-3 group-hover:scale-110 transition-transform"><i class="fa-solid fa-cloud"></i></div>
+                <h3 class="font-syne font-bold text-base text-slate-900 dark:text-white mb-1">Cinnamoroll & Kitty</h3>
+                <p class="text-xs text-slate-500 dark:text-gray-400 leading-relaxed">A doçura do Cinnamoroll com o ícone Hello Kitty em releitura moderna, minty & noir chic.</p>
+            </div>
+
+            <!-- ILLIT Obsession & Iroha -->
+            <div class="bg-white dark:bg-illit-cardDark p-6 rounded-2xl border border-teal-100 dark:border-illit-cardBorder hover:border-illit-pink transition-all group">
+                <div class="text-2xl text-illit-mintSoft mb-3 group-hover:scale-110 transition-transform"><i class="fa-solid fa-star"></i></div>
+                <h3 class="font-syne font-bold text-base text-slate-900 dark:text-white mb-1">ILLIT & Iroha Utt</h3>
+                <p class="text-xs text-slate-500 dark:text-gray-400 leading-relaxed">Fã número 1 da Iroha: presença de palco incrível, dança afiada e o conceito hipnotizante do ILLIT.</p>
+            </div>
+
+            <!-- Reading Space & Jorge Amado -->
+            <div class="bg-white dark:bg-illit-cardDark p-6 rounded-2xl border border-teal-100 dark:border-illit-cardBorder hover:border-illit-mintSoft transition-all group">
+                <div class="text-2xl text-illit-pink mb-3 group-hover:scale-110 transition-transform"><i class="fa-solid fa-book-bookmark"></i></div>
+                <h3 class="font-syne font-bold text-base text-slate-900 dark:text-white mb-1">Jorge Amado Fan</h3>
+                <p class="text-xs text-slate-500 dark:text-gray-400 leading-relaxed">Fascinada por <i>Capitães da Areia</i> e a poesia marcante da literatura clássica brasileira.</p>
+            </div>
+        </section>
+
+        <!-- Seção: Estúdio de Criação & Sensibilidade Digital -->
+        <section class="bg-white dark:bg-illit-cardDark rounded-3xl p-8 shadow-xl border border-teal-100 dark:border-illit-cardBorder">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
+                <h2 class="text-2xl font-syne font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+                    <i class="fa-solid fa-palette text-illit-pink"></i> Universo de Criação Web
+                </h2>
+                <span class="text-xs font-mono text-illit-mintSoft bg-teal-500/10 border border-teal-400/30 px-3 py-1 rounded-full">Digital Design & Art</span>
+            </div>
+
+            <!-- Cards de Interesses Criativos -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Estética e Layouts -->
+                <div class="p-5 bg-slate-50 dark:bg-illit-black/60 rounded-2xl border border-slate-200 dark:border-illit-cardBorder">
+                    <div class="flex items-center gap-2 text-illit-pink font-syne font-bold text-sm mb-2">
+                        <i class="fa-solid fa-pen-nib text-lg"></i>
+                        <span>Design Visual & Cores</span>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
+                        Construção de páginas interativas que misturam verde menta, rosa e elementos minimalistas.
+                    </p>
+                </div>
+
+                <!-- Lógica Interativa -->
+                <div class="p-5 bg-slate-50 dark:bg-illit-black/60 rounded-2xl border border-slate-200 dark:border-illit-cardBorder">
+                    <div class="flex items-center gap-2 text-illit-mintSoft font-syne font-bold text-sm mb-2">
+                        <i class="fa-solid fa-sparkles text-lg"></i>
+                        <span>Experiências Dinâmicas</span>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
+                        Criação de botões com respostas interativas, alternadores de clima/tema e efeitos visuais leves no DOM.
+                    </p>
+                </div>
+
+                <!-- Concepting -->
+                <div class="p-5 bg-slate-50 dark:bg-illit-black/60 rounded-2xl border border-slate-200 dark:border-illit-cardBorder">
+                    <div class="flex items-center gap-2 text-illit-pink font-syne font-bold text-sm mb-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                        <span>Conceito & Narrativa</span>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
+                        Inspirada pelo conceito *Not Cute Anymore* e referências literárias para criar experiências únicas no navegador.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Dupla: Leitura Especial (Capitães da Areia / Jorge Amado) & Music Player ILLIT -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Estante Virtual Especial: Capitães da Areia & Jorge Amado -->
+            <div class="bg-white dark:bg-illit-cardDark p-6 rounded-3xl border border-teal-100 dark:border-illit-cardBorder shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-syne font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-book text-illit-pink"></i> Cantinho da Leitura
+                        </h3>
+                        <span class="text-[10px] bg-illit-pink/20 text-illit-pink px-2.5 py-0.5 rounded font-bold border border-illit-pink/30 uppercase">Favorito Absoluto</span>
+                    </div>
+
+                    <!-- Highlight Capitães da Areia -->
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-illit-black/60 border border-slate-200 dark:border-illit-cardBorder/80 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-syne font-bold text-sm text-slate-900 dark:text-white">Capitães da Areia</h4>
+                            <span class="text-xs font-semibold text-illit-mintSoft">Jorge Amado</span>
+                        </div>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 italic leading-relaxed">
+                            "A liberdade é como o sol. É o bem maior do mundo."
+                        </p>
+                        <p class="text-[11px] text-slate-500 dark:text-gray-500 pt-1">
+                            Jorge Amado é meu autor favorito da literatura clássica brasileira pela sensibilidade, humanidade e crítica marcante.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-100 dark:border-illit-cardBorder/40 flex items-center justify-between text-xs text-slate-500 dark:text-gray-400">
+                    <span>Gênero: Literatura Clássica Brasileira</span>
+                    <i class="fa-solid fa-heart text-illit-pink"></i>
+                </div>
+            </div>
+
+            <!-- Custom Music Player (ILLIT - Iroha Focus Track) -->
+            <div class="bg-white dark:bg-illit-cardDark p-6 rounded-3xl border border-teal-100 dark:border-illit-cardBorder shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-syne font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-headphones text-illit-mintSoft"></i> ILLIT Soundtrack
+                        </h3>
+                        <span id="playerStatus" class="text-[10px] font-mono text-gray-400">PAUSED</span>
+                    </div>
+
+                    <div class="flex items-center gap-4 bg-slate-50 dark:bg-illit-black/70 p-4 rounded-2xl border border-slate-200 dark:border-illit-cardBorder">
+                        <div id="albumCover" class="w-14 h-14 bg-gradient-to-br from-teal-400 to-illit-pink rounded-xl flex items-center justify-center text-slate-900 text-2xl shadow-md transition-all">
+                            <i class="fa-solid fa-compact-disc"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <p class="font-syne font-bold text-sm text-slate-900 dark:text-white truncate">Not Cute Anymore (Iroha Focus)</p>
+                            <p class="text-xs text-illit-pink font-semibold">ILLIT • 아일릿 (이로하)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualizer Falso e Controles -->
+                <div class="mt-4 space-y-3">
+                    <div class="flex items-center justify-center gap-1 h-4" id="audioVisualizer">
+                        <span class="w-1 bg-illit-mintSoft rounded-full h-2 transition-all duration-300"></span>
+                        <span class="w-1 bg-illit-pink rounded-full h-3 transition-all duration-300"></span>
+                        <span class="w-1 bg-illit-mintSoft rounded-full h-1 transition-all duration-300"></span>
+                        <span class="w-1 bg-illit-pink rounded-full h-4 transition-all duration-300"></span>
+                        <span class="w-1 bg-illit-mintSoft rounded-full h-2 transition-all duration-300"></span>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-5 text-slate-600 dark:text-illit-silver">
+                        <button class="hover:text-illit-pink transition"><i class="fa-solid fa-backward-step"></i></button>
+                        <button id="playMusicBtn" class="w-11 h-11 bg-illit-mintSoft hover:opacity-90 text-slate-900 rounded-xl flex items-center justify-center shadow-lg transition mint-glow font-bold">
+                            <i id="playIcon" class="fa-solid fa-play text-xs"></i>
+                        </button>
+                        <button class="hover:text-illit-pink transition"><i class="fa-solid fa-forward-step"></i></button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-white dark:bg-illit-cardDark border-t border-teal-100 dark:border-illit-cardBorder py-6 text-center text-xs text-slate-500 dark:text-gray-500 transition-colors">
+        <p class="flex items-center justify-center gap-2 font-medium">
+            <span>Priscila © Code & Creative Design</span> • <span class="text-illit-pink">Menta & Noir Aesthetic</span>
+        </p>
+        <p class="mt-1 text-[11px] text-slate-400 dark:text-gray-600">Sanrio (Cinnamoroll & Kitty) × ILLIT Iroha Inspired Concept</p>
+    </footer>
+
+    <!-- Lógica em JavaScript (Manipulação do DOM) -->
+    <script>
+        // 1. Botão de Copiar Link
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const copyIcon = document.getElementById('copyIcon');
+        const copyText = document.getElementById('copyText');
+
+        copyLinkBtn.addEventListener('click', () => {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            copyIcon.className = 'fa-solid fa-check text-illit-mintSoft';
+            copyText.textContent = 'Link Copiado!';
+
+            setTimeout(() => {
+                copyIcon.className = 'fa-solid fa-link text-illit-pink';
+                copyText.textContent = 'Copiar Link';
+            }, 2000);
+        });
+
+        // 2. Alternar Tema (Dark / Light)
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            themeIcon.className = isDark ? 'fa-solid fa-moon text-illit-mintSoft' : 'fa-solid fa-sun text-amber-500';
+            themeText.textContent = isDark ? 'Minta & Noir Mode' : 'Minty Light Mode';
+        });
+
+        // 3. Contador de Curtidas com Corações Flutuantes
+        const likeBtn = document.getElementById('likeBtn');
+        const likeCountEl = document.getElementById('likeCount');
+        let likes = 0;
+
+        likeBtn.addEventListener('click', (e) => {
+            likes++;
+            likeCountEl.textContent = likes;
+
+            const spark = document.createElement('i');
+            spark.className = 'fa-solid fa-heart floating-spark text-illit-pink';
+            const rect = likeBtn.getBoundingClientRect();
+            spark.style.left = `${e.clientX - rect.left}px`;
+            spark.style.top = `${e.clientY - rect.top}px`;
+            likeBtn.appendChild(spark);
+
+            setTimeout(() => spark.remove(), 700);
+        });
+
+        // 4. Revelador de Curiosidades/Segredos
+        const factBtn = document.getElementById('factBtn');
+        const factCard = document.getElementById('factCard');
+        const factText = document.getElementById('factText');
+
+        const secrets = [
+            "✨ Minha utt no ILLIT é a Iroha! A precisão dos movimentos de dança dela me inspira na hora de criar visuais bem acabados.",
+            "📖 'Capitães da Areia' do Jorge Amado é o meu livro favorito de toda a literatura clássica brasileira!",
+            "☁️ Cinnamoroll e Hello Kitty ganham uma versão chic no meu espaço: verde menta com rosa sofisticado.",
+            "🎧 Criar projetos web ouvindo as músicas e batidas do ILLIT melhora o meu foco em 200%.",
+            "🐈 Meus gatos acompanham de perto todo o meu processo criativo no computador!",
+            "☕ Adoro experimentar combinações de cores e botões dinâmicos em JavaScript para dar vida às minhas ideias."
+        ];
+
+        factBtn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * secrets.length);
+            factText.textContent = secrets[randomIndex];
+            factCard.classList.remove('hidden');
+        });
+
+        // 5. Simulação do Player de Músicas com Equalizador Ativo
+        const playMusicBtn = document.getElementById('playMusicBtn');
+        const playIcon = document.getElementById('playIcon');
+        const playerStatus = document.getElementById('playerStatus');
+        const albumCover = document.getElementById('albumCover');
+        const equalizerBars = document.querySelectorAll('#audioVisualizer span');
+        let isPlaying = false;
+        let visualizerInterval;
+
+        playMusicBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                playIcon.className = 'fa-solid fa-pause text-xs';
+                playerStatus.textContent = 'PLAYING';
+                playerStatus.className = 'text-[10px] font-mono text-illit-mintSoft font-bold animate-pulse';
+                albumCover.classList.add('mint-glow');
+
+                visualizerInterval = setInterval(() => {
+                    equalizerBars.forEach(bar => {
+                        bar.style.height = `${Math.floor(Math.random() * 16) + 4}px`;
+                    });
+                }, 150);
+            } else {
+                playIcon.className = 'fa-solid fa-play text-xs';
+                playerStatus.textContent = 'PAUSED';
+                playerStatus.className = 'text-[10px] font-mono text-gray-400';
+                albumCover.classList.remove('mint-glow');
+                clearInterval(visualizerInterval);
+                equalizerBars.forEach(bar => bar.style.height = '6px');
+            }
+        });
+    </script>
+</body>
+</html>
